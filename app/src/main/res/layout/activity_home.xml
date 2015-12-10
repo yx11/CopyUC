@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_blue_dark"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/tv_she_shi_du"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                tools:text="16℃" />
+
+            <TextView
+                android:id="@+id/tv_kong_qi"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:layout_toRightOf="@+id/tv_she_shi_du"
+                android:background="@drawable/bg_pm"
+                android:textColor="@android:color/white"
+                tools:text="33" />
+
+            <TextView
+                android:id="@+id/tv_kong_qi_zhi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/tv_kong_qi"
+                android:textColor="@android:color/white"
+                tools:text="空气优" />
+
+            <TextView
+                android:id="@+id/tv_area"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_kong_qi"
+                android:layout_marginBottom="5dp"
+                android:layout_toRightOf="@+id/tv_she_shi_du"
+                android:textColor="@android:color/white"
+                tools:text="福田区" />
+
+            <TextView
+                android:id="@+id/tv_weather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_kong_qi_zhi"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/tv_area"
+                android:textColor="@android:color/white"
+                tools:text="暴雨" />
+
+            <ImageView
+                android:id="@+id/iv_pic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                tools:src="@android:drawable/ic_delete" />
+
+        </RelativeLayout>
+
+
+        <include layout="@layout/ui_search" />
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,134 @@
+package com.yx.android.copyuc.config;
+
+import com.baidu.voicerecognition.android.VoiceRecognitionConfig;
+import com.baidu.voicerecognition.android.ui.BaiduASRDigitalDialog;
+
+public class Constants {
+    /*
+     * 请登录http://developer.baidu.com，注册成为百度开发者，创建应用并开通语音技术服务后，
+     * 将对应的ApiKey和SecretKey填写后再测试
+     */
+    public static final String API_KEY = "eVg1EzDPo2GiRQVh10KTFYKO";
+
+    public static final String SECRET_KEY = "v9b7CYVbwLq7ZTZwEO3b16GXWbVH9LVL";
+
+    /**
+     * 临时保存参数信息，Demo演示使用。开发者不须关注
+     *
+     * @author yangliang02
+     */
+    public static class Config {
+        /**
+         * 对话框样式
+         */
+        public static int DIALOG_THEME = BaiduASRDigitalDialog.THEME_BLUE_LIGHTBG;
+
+        /**
+         * 当前识别语言
+         */
+        public static String CURRENT_LANGUAGE = VoiceRecognitionConfig.LANGUAGE_CHINESE;
+
+        private static int CURRENT_LANGUAGE_INDEX = 0;
+
+        /**
+         * 当前垂直领域类型
+         */
+        public static int CURRENT_PROP = VoiceRecognitionConfig.PROP_INPUT;
+
+        private static int CURRENT_PROP_INDEX = 0;
+
+        public static String getCurrentLanguage() {
+            return CURRENT_LANGUAGE;
+        }
+
+        public static int getCurrentLanguageIndex() {
+            return CURRENT_LANGUAGE_INDEX;
+        }
+
+        public static void setCurrentLanguageIndex(int index) {
+            switch (index) {
+                case 1:
+                    CURRENT_LANGUAGE = VoiceRecognitionConfig.LANGUAGE_CANTONESE;
+                    break;
+                case 2:
+                    CURRENT_LANGUAGE = VoiceRecognitionConfig.LANGUAGE_ENGLISH;
+                    break;
+
+                default:
+                    CURRENT_LANGUAGE = VoiceRecognitionConfig.LANGUAGE_CHINESE;
+                    index = 0;
+                    break;
+            }
+            CURRENT_LANGUAGE_INDEX = index;
+        }
+
+        public static int getCurrentPropIndex() {
+            return CURRENT_PROP_INDEX;
+        }
+
+        public static void setCurrentPropIndex(int index) {
+            switch (index) {
+                case 1:
+                    CURRENT_PROP = VoiceRecognitionConfig.PROP_SEARCH;
+                    break;
+                case 2:
+                    CURRENT_PROP = VoiceRecognitionConfig.PROP_MAP;
+                    break;
+                case 3:
+                    CURRENT_PROP = VoiceRecognitionConfig.PROP_MUSIC;
+                    break;
+                case 4:
+                    CURRENT_PROP = VoiceRecognitionConfig.PROP_VIDEO;
+                    break;
+                case 5:
+                    CURRENT_PROP = VoiceRecognitionConfig.PROP_APP;
+                    break;
+                case 6:
+                    CURRENT_PROP = VoiceRecognitionConfig.PROP_WEB;
+                    break;
+                case 7:
+                    CURRENT_PROP = VoiceRecognitionConfig.PROP_HEALTH;
+                    break;
+                case 8:
+                    CURRENT_PROP = VoiceRecognitionConfig.PROP_SHOPPING;
+                    break;
+                case 9:
+                    CURRENT_PROP = VoiceRecognitionConfig.PROP_PHONE;
+                    break;
+                default:
+                    CURRENT_PROP = VoiceRecognitionConfig.PROP_INPUT;
+                    index = 0;
+                    break;
+            }
+            CURRENT_PROP_INDEX = index;
+        }
+
+        /**
+         * 播放开始音
+         */
+        public static boolean PLAY_START_SOUND = true;
+
+        /**
+         * 播放结束音
+         */
+        public static boolean PLAY_END_SOUND = true;
+
+        /**
+         * 对话框提示音
+         */
+        public static boolean DIALOG_TIPS_SOUND = true;
+
+        /**
+         * 显示音量
+         */
+        public static boolean SHOW_VOL = true;
+
+
+        public static String JSON = "json";
+        public static String MCODE = "5E:55:93:DC:5A:58:35:4A:2D:6B:17:E7:60:69:DE:3A:40:30:5C:B2;com.yx.android.copyuc";
+
+        public static String AK = "eVg1EzDPo2GiRQVh10KTFYKO";
+
+
+    }
+}
