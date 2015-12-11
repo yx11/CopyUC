@@ -197,7 +197,7 @@ public class MainActivity extends BaseActivity {
         //获取数据
         getData();
 
-        final GradViewAdapter adapter=new GradViewAdapter(this,mGradView,lists);
+        final GradViewAdapter adapter = new GradViewAdapter(this, mGradView, lists);
 
         mGradView.setAdapter(adapter);
 
@@ -206,13 +206,13 @@ public class MainActivity extends BaseActivity {
             public void onChange(int from, int to) {
                 Map<String, Object> temp = lists.get(from);
                 //这里的处理需要注意下
-                if(from < to){
-                    for(int i=from; i<to; i++){
+                if (from < to) {
+                    for (int i = from; i < to; i++) {
                         Collections.swap(lists, i, i + 1);
                     }
-                }else if(from > to){
-                    for(int i=from; i>to; i--){
-                        Collections.swap(lists, i, i-1);
+                } else if (from > to) {
+                    for (int i = from; i > to; i--) {
+                        Collections.swap(lists, i, i - 1);
                     }
                 }
 

@@ -8,7 +8,6 @@ import com.yx.android.copyuc.utils.GsonUtils;
 import com.yx.android.copyuc.utils.LogUtils;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -38,14 +37,9 @@ public abstract class GetTodayWeatherProtocol extends BaseProtocol {
 
     @Override
     protected void requestSuccess(String result) {
-        LogUtils.e("获取天气数据返回结果"+result);
+        LogUtils.e("获取天气数据返回结果" + result);
         WeatherInfoDto weatherInfoDto = GsonUtils.changeJsonToBean(result, WeatherInfoDto.class);
-        List<WeatherInfoDto.WeatherInfo> list=new ArrayList<>();
-        list=weatherInfoDto.getResults();
-
-
-
-//        Toast.makeText(BaseActivity.getForegroundActivity(), result, Toast.LENGTH_LONG).show();
+        List<WeatherInfoDto.WeatherInfo> list = weatherInfoDto.getResults();
         onRefreshView(list);
 
     }
