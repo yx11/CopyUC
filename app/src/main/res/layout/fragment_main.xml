@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_blue_dark"
+        android:background="@color/viewfinder_laser"
         android:orientation="vertical">
 
 
@@ -21,7 +21,7 @@
                 android:id="@+id/tv_she_shi_du"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginRight="10dp"
                 android:gravity="center"
                 android:textColor="@android:color/white"
@@ -33,10 +33,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
                 android:layout_toRightOf="@+id/tv_she_shi_du"
                 android:background="@drawable/bg_pm"
+                android:gravity="center"
                 android:textColor="@android:color/white"
+                android:visibility="invisible"
                 tools:text="33" />
 
             <TextView
@@ -75,8 +76,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                tools:src="@android:drawable/ic_delete" />
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="20dp"
+                tools:src="@mipmap/notification_weather_cloudy_small" />
 
         </RelativeLayout>
 

@@ -83,4 +83,6 @@
         <item>讲个笑话</item>
         <item>百度大厦怎么走</item>
     </string-array>
+
+    <drawable name="sr_primary" >#ff239cf9</drawable>
 </resources>

@@ -13,9 +13,16 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
  * Created by yx on 2015/12/9 0009.
  */
 public class BaseApplication extends Application {
+    /**
+     * 全局Context
+     */
+    private static BaseApplication mInstance;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        mInstance = this;
+
         //初始化百度地图
         SDKInitializer.initialize(this);
         initImageLoader(getApplicationContext());
@@ -36,5 +43,10 @@ public class BaseApplication extends Application {
 
         // Initialize ImageLoader with configuration.
         ImageLoader.getInstance().init(config.build());
+    }
+
+
+    public static BaseApplication getApplication() {
+        return mInstance;
     }
 }

@@ -1,7 +1,6 @@
 package com.yx.android.copyuc.ui.activtiy;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -19,24 +18,27 @@ import java.util.List;
  * Created by yx on 2015/12/9 0009.
  */
 public class HomeActivity extends BaseActivity {
-    private List<Fragment> mTabContents = new ArrayList<Fragment>();
+    private List<Fragment> mTabContents = new ArrayList<>();
     private ViewPager viewPager;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+    protected void initViewsAndEvents() {
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         mTabContents.add(new MainFragment());
         mTabContents.add(new ShowFragment());
-
         FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
-
-
         viewPager.setAdapter(adapter);
 
     }
+
+    @Override
+    protected int getContentViewLayoutID() {
+        return R.layout.activity_home;
+    }
+
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -61,4 +63,5 @@ public class HomeActivity extends BaseActivity {
             return mTabContents.size();
         }
     }
+
 }

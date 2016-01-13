@@ -1,82 +1,92 @@
 package com.yx.android.copyuc.ui.activtiy;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.Toolbar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.lidroid.xutils.util.LogUtils;
 import com.yx.android.copyuc.R;
+import com.yx.android.copyuc.eventbus.EventCenter;
+import com.yx.android.copyuc.manager.BaseAppManager;
+import com.yx.android.copyuc.ui.base.BaseAppcompatActivity;
+import com.yx.android.copyuc.ui.base.BaseView;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import butterknife.ButterKnife;
 
 /**
  * Created by yx on 2015/12/9 0009.
  */
-public class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends BaseAppcompatActivity implements BaseView {
+
+    public Toolbar mToolbar;
+    public TextView mTitle;
+    public RelativeLayout mTopBar;
+
     /**
      * 记录处于前台的Activity
      */
     private static BaseActivity mForegroundActivity = null;
-    /**
-     * 记录所有活动的Activity
-     */
-    private static final List<BaseActivity> mActivities = new LinkedList<>();
+    private static BaseActivity mCurrentActivity = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base);
+        if (isApplyStatusBarTranslucency()) {
+            setSystemBarTintDrawable(getResources().getDrawable(R.drawable.sr_primary));
+        }
+        mForegroundActivity = this;
+    }
 
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
+        mToolbar = ButterKnife.findById(this, R.id.common_toolbar);
+        mTopBar = ButterKnife.findById(this, R.id.rl_title_bar);
+        mTitle = ButterKnife.findById(this, R.id.toolbar_title);
+        if (null != mToolbar) {
+            mToolbar.setTitle("");
+            setSupportActionBar(mToolbar);
+            if (setToolBar()) {
+                getSupportActionBar().setHomeButtonEnabled(true);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+            }
+        }
+    }
+
+    protected boolean setToolBar() {
+        return false;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mCurrentActivity = this;
     }
 
     @Override
     protected void onResume() {
-        mForegroundActivity = this;
-        LogUtils.i("mForegroundActivity-" + mForegroundActivity.getClass().getSimpleName());
         super.onResume();
+        mForegroundActivity = this;
+    }
+
+    @Override
+    protected void onEventComming(EventCenter var1) {
+
     }
 
     @Override
     protected void onPause() {
-        mForegroundActivity = null;
         super.onPause();
+        mForegroundActivity = null;
     }
 
-
-    /**
-     * 关闭所有Activity
-     */
-    public static void finishAll() {
-        List<BaseActivity> copy;
-        synchronized (mActivities) {
-            copy = new ArrayList<>(mActivities);
-        }
-        for (BaseActivity activity : copy) {
-            activity.finish();
-        }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mCurrentActivity = null;
     }
 
-    /**
-     * 关闭所有Activity，除了参数传递的Activity
-     */
-    public static void finishAll(BaseActivity except) {
-        List<BaseActivity> copy;
-        synchronized (mActivities) {
-            copy = new ArrayList<>(mActivities);
-        }
-        for (BaseActivity activity : copy) {
-            if (activity != except) activity.finish();
-        }
-    }
-
-
-    /**
-     * 是否有启动的Activity
-     */
-    public static boolean hasActivity() {
-        return mActivities.size() > 0;
-    }
 
     /**
      * 获取当前处于前台的activity
@@ -85,36 +95,53 @@ public class BaseActivity extends FragmentActivity {
         return mForegroundActivity;
     }
 
-    /**
-     * 获取当前处于栈顶的activity，无论其是否处于前台
-     */
+
     public static BaseActivity getCurrentActivity() {
-        List<BaseActivity> copy;
-        synchronized (mActivities) {
-            copy = new ArrayList<BaseActivity>(mActivities);
-        }
-        if (copy.size() > 0) {
-            return copy.get(copy.size() - 1);
-        }
-        return null;
+        return mCurrentActivity;
+    }
+
+
+    @Override
+    protected boolean isApplyStatusBarTranslucency() {
+        return true;
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mActivities.remove(this);
+    protected boolean isBindEventBusHere() {
+        return false;
     }
 
     @Override
-    public void finish() {
-        super.finish();
+    public void showError(String msg) {
+//        toggleShowError(true, msg, null);
     }
 
-    /**
-     * 退出应用
-     */
-    public void exitApp() {
-        finishAll();
-        super.onBackPressed();
+    @Override
+    public void showException(String msg) {
+//        toggleShowError(true, msg, null);
+    }
+
+    @Override
+    public void showNetError() {
+//        toggleNetworkError(true, null);
+    }
+
+    @Override
+    public void showLoading(String msg) {
+//        toggleShowLoading(true, null);
+    }
+
+    @Override
+    public void hideLoading() {
+//        toggleShowLoading(false, null);
+    }
+
+    public void finishActivities() {
+        BaseAppManager.getInstance().clear();
+    }
+
+    @Override
+    protected void getBundleExtras(Bundle var1) {
+
     }
 }

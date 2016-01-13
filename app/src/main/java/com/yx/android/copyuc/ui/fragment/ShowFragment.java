@@ -1,13 +1,16 @@
 package com.yx.android.copyuc.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.yx.android.copyuc.R;
+import com.yx.android.copyuc.ui.activtiy.VoiceActivity;
 import com.yx.android.copyuc.ui.adapter.GradViewAdapter;
 import com.yx.android.copyuc.ui.widget.MyGridView;
 
@@ -31,6 +34,7 @@ public class ShowFragment extends Fragment {
             android.R.drawable.ic_menu_camera, android.R.drawable.ic_menu_camera, android.R.drawable.ic_menu_camera,
             android.R.drawable.ic_menu_camera};
     private List<Map<String, Object>> lists;
+    private ImageView mSpeek;
 
     @Nullable
     @Override
@@ -41,6 +45,15 @@ public class ShowFragment extends Fragment {
     }
 
     private void initView(View view) {
+        mSpeek = (ImageView) view.findViewById(R.id.iv_speek);
+
+        mSpeek.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), VoiceActivity.class));
+            }
+        });
+
         mGradView = (MyGridView) view.findViewById(R.id.gv_list);
         //新建List
         lists = new ArrayList<>();
