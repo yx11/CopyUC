@@ -8,7 +8,7 @@ import com.yx.android.copyuc.ui.base.BaseLazyFragment;
 /**
  * Created by yx on 2016/1/13 0013.
  */
-public class BaseFragment extends BaseLazyFragment {
+public abstract class BaseFragment extends BaseLazyFragment {
     @Override
     protected void onFirstUserVisible() {
 
@@ -24,20 +24,6 @@ public class BaseFragment extends BaseLazyFragment {
 
     }
 
-    @Override
-    protected View getLoadingTargetView() {
-        return null;
-    }
-
-    @Override
-    protected void initViewsAndEvents() {
-
-    }
-
-    @Override
-    protected int getContentViewLayoutID() {
-        return 0;
-    }
 
     @Override
     protected void onEventComming(EventCenter var1) {

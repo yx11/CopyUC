@@ -1,51 +1,50 @@
 package com.yx.android.copyuc.ui.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.yx.android.copyuc.R;
+import com.yx.android.copyuc.bean.GridViewInfo;
 import com.yx.android.copyuc.ui.activtiy.VoiceActivity;
-import com.yx.android.copyuc.ui.adapter.GradViewAdapter;
-import com.yx.android.copyuc.ui.widget.MyGridView;
+import com.yx.android.copyuc.ui.adapter.MyGridViewAdapter;
+import com.yx.android.copyuc.ui.holder.MyGridViewHolder;
+import com.yx.android.copyuc.ui.holder.ViewHolderBase;
+import com.yx.android.copyuc.ui.impl.ViewHolderCreator;
+import com.yx.android.copyuc.ui.widget.DynamicGridView;
+import com.yx.android.copyuc.utils.TLog;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by yx on 2015/12/11 0011.
  */
-public class ShowFragment extends Fragment {
-    private MyGridView mGradView;
-    private String[] iconName = {"通讯录", "日历", "照相机", "时钟", "游戏", "短信", "铃声",
-            "设置", "语音", "天气", "浏览器", "视频"};
-    // 图片封装为一个数组
-    private int[] icon = {android.R.drawable.ic_menu_my_calendar, android.R.drawable.ic_menu_my_calendar,
-            android.R.drawable.ic_menu_camera, android.R.drawable.ic_lock_lock, android.R.drawable.ic_dialog_alert,
-            android.R.drawable.ic_menu_camera, android.R.drawable.ic_menu_camera, android.R.drawable.ic_menu_camera,
-            android.R.drawable.ic_menu_camera, android.R.drawable.ic_menu_camera, android.R.drawable.ic_menu_camera,
-            android.R.drawable.ic_menu_camera};
-    private List<Map<String, Object>> lists;
+public class ShowFragment extends BaseFragment {
     private ImageView mSpeek;
+    private List<GridViewInfo> lists;
+    private DynamicGridView gridView;
+    private MyGridViewAdapter adapter;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_show, null);
-        initView(view);
-        return view;
+    protected View getLoadingTargetView() {
+        return null;
     }
 
-    private void initView(View view) {
-        mSpeek = (ImageView) view.findViewById(R.id.iv_speek);
+    @Override
+    protected void initViewsAndEvents() {
+        initView();
+    }
+
+    @Override
+    protected int getContentViewLayoutID() {
+        return R.layout.fragment_show;
+    }
+
+    private void initView() {
+        mSpeek = (ImageView) getActivity().findViewById(R.id.iv_speek);
 
         mSpeek.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,48 +53,71 @@ public class ShowFragment extends Fragment {
             }
         });
 
-        mGradView = (MyGridView) view.findViewById(R.id.gv_list);
         //新建List
         lists = new ArrayList<>();
         //获取数据
         getData();
 
-        final GradViewAdapter adapter = new GradViewAdapter(getActivity(), mGradView, lists);
 
-        mGradView.setAdapter(adapter);
+        gridView = (DynamicGridView) getActivity().findViewById(R.id.dynamic_grid);
 
-        mGradView.setOnChanageListener(new MyGridView.OnChanageListener() {
+        adapter = new MyGridViewAdapter<>(new ViewHolderCreator<GridViewInfo>() {
+
             @Override
-            public void onChange(int from, int to) {
-                Map<String, Object> temp = lists.get(from);
-                //这里的处理需要注意下
-                if (from < to) {
-                    for (int i = from; i < to; i++) {
-                        Collections.swap(lists, i, i + 1);
-                    }
-                } else if (from > to) {
-                    for (int i = from; i > to; i--) {
-                        Collections.swap(lists, i, i - 1);
-                    }
-                }
+            public ViewHolderBase<GridViewInfo> createViewHolder(int position) {
+                return new MyGridViewHolder(adapter);
+            }
+        }, lists, 4);
+        gridView.setAdapter(adapter);
+        gridView.setOnDragListener(new DynamicGridView.OnDragListener() {
+            @Override
+            public void onDragStarted(int position) {
+                TLog.d("onDragStarted", "drag started at position " + position);
+            }
 
-                lists.set(to, temp);
+            @Override
+            public void onDragPositionsChanged(int oldPosition, int newPosition) {
+                TLog.d("onDragPositionsChanged", String.format("drag item position changed from %d to %d", oldPosition, newPosition));
+//                gridView.stopEditMode();
+            }
+        });
 
-                adapter.notifyDataSetChanged();
+        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                gridView.startEditMode(position);
+                return true;
+            }
+        });
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(), parent.getAdapter().getItem(position).toString(),
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private List<Map<String, Object>> getData() {
-        //cion和iconName的长度是相同的，这里任选其一都可以
-        for (int i = 0; i < icon.length; i++) {
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("image", icon[i]);
-            map.put("text", iconName[i]);
-            lists.add(map);
+
+    private void getData() {
+        for (int i = 0; i < 24; i++) {
+            GridViewInfo info = new GridViewInfo();
+            info.setViewName("通讯录" + i);
+            if (i % 2 == 0) {
+                info.setViewLogo(android.R.drawable.ic_menu_my_calendar);
+            } else {
+                info.setViewLogo(android.R.drawable.ic_menu_add);
+            }
+            lists.add(info);
         }
 
-        return lists;
     }
 
+    @Override
+    protected void onUserInvisible() {
+        if (gridView.isEditMode()) {
+            gridView.stopEditMode();
+        }
+    }
 }

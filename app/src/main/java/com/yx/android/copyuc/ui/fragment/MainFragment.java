@@ -3,11 +3,7 @@ package com.yx.android.copyuc.ui.fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,7 +30,7 @@ import java.util.List;
 /**
  * Created by yx on 2015/12/11 0011.
  */
-public class MainFragment extends Fragment {
+public class MainFragment extends BaseFragment {
     private DriverLocationClient client;
     private ImageView mPic;
     private ImageLoader imageLoader;
@@ -42,25 +38,32 @@ public class MainFragment extends Fragment {
     private final static int SCANNIN_GREQUEST_CODE = 1;
     private ImageView mSpeek;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_main, null);
-        initView(view);
-        return view;
+    protected View getLoadingTargetView() {
+        return null;
     }
 
-    private void initView(View view) {
+    @Override
+    protected void initViewsAndEvents() {
+        initView();
+    }
+
+    @Override
+    protected int getContentViewLayoutID() {
+        return R.layout.fragment_main;
+    }
+
+    private void initView() {
         imageLoader = ImageLoader.getInstance();
-        mPic = (ImageView) view.findViewById(R.id.iv_pic);
-        mArea = (TextView) view.findViewById(R.id.tv_area);
-        mPm = (TextView) view.findViewById(R.id.tv_kong_qi);
-        mZhiL = (TextView) view.findViewById(R.id.tv_kong_qi_zhi);
-        mSheShiDu = (TextView) view.findViewById(R.id.tv_she_shi_du);
-        mStatu = (TextView) view.findViewById(R.id.tv_weather);
+        mPic = (ImageView) getActivity().findViewById(R.id.iv_pic);
+        mArea = (TextView) getActivity().findViewById(R.id.tv_area);
+        mPm = (TextView) getActivity().findViewById(R.id.tv_kong_qi);
+        mZhiL = (TextView) getActivity().findViewById(R.id.tv_kong_qi_zhi);
+        mSheShiDu = (TextView) getActivity().findViewById(R.id.tv_she_shi_du);
+        mStatu = (TextView) getActivity().findViewById(R.id.tv_weather);
         setLocationCity();//定位城市
 
-        ImageView mSweep = (ImageView) view.findViewById(R.id.iv_sweep);
+        ImageView mSweep = (ImageView) getActivity().findViewById(R.id.iv_sweep);
         mSweep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +73,7 @@ public class MainFragment extends Fragment {
             }
         });
 
-        mSpeek = (ImageView) view.findViewById(R.id.iv_speek);
+        mSpeek = (ImageView) getActivity().findViewById(R.id.iv_speek);
 
 
         mSpeek.setOnClickListener(new View.OnClickListener() {

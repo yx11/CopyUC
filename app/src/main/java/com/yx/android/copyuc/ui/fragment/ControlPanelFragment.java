@@ -1,11 +1,7 @@
 
 package com.yx.android.copyuc.ui.fragment;
 
-import android.app.Fragment;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -18,7 +14,7 @@ import com.yx.android.copyuc.R;
  * 
  * @author yx
  */
-public class ControlPanelFragment extends Fragment {
+public class ControlPanelFragment extends BaseFragment {
     private static final int STATUS_IDLE = 1;
 
     public static final int STATUS_RECORDING_START = STATUS_IDLE << 1;
@@ -82,13 +78,23 @@ public class ControlPanelFragment extends Fragment {
     };
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.control_panel_fragment, container, true);
+    protected View getLoadingTargetView() {
+        return null;
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    protected void initViewsAndEvents() {
+
+    }
+
+    @Override
+    protected int getContentViewLayoutID() {
+        return R.layout.control_panel_fragment;
+    }
+
+
+    @Override
+    protected void onFirstUserVisible() {
         View root = getView();
         mStatusPanel = root.findViewById(R.id.status_panel);
         mStatusView = (TextView) root.findViewById(R.id.statusTextView);

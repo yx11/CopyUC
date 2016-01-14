@@ -48,7 +48,6 @@ public class BaseRequest<T> extends Request<T> {
     @Override
     protected void deliverResponse(T t) {
         this.mListener.onResponse(t);
-
     }
 
 
