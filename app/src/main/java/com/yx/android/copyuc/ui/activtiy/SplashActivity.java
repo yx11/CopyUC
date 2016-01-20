@@ -16,7 +16,7 @@ import com.yx.android.copyuc.ui.widget.AnimationCircleTextView;
  */
 public class SplashActivity extends BaseActivity implements View.OnClickListener {
 
-    private AnimationCircleTextView mLeft, mTop, mCenter, mRight, mBottom;
+    private AnimationCircleTextView mLeft, mTop, mCenter, mRight, mBottom, mLeftTop, mLeftBottom, mRightTop;
     private boolean isNext = true;
     private TextView mStart;
 
@@ -27,6 +27,9 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
         mCenter = (AnimationCircleTextView) findViewById(R.id.tv_center);
         mRight = (AnimationCircleTextView) findViewById(R.id.tv_right);
         mBottom = (AnimationCircleTextView) findViewById(R.id.tv_bottom);
+        mLeftTop = (AnimationCircleTextView) findViewById(R.id.tv_left_top);
+        mLeftBottom = (AnimationCircleTextView) findViewById(R.id.tv_left_bottom);
+        mRightTop = (AnimationCircleTextView) findViewById(R.id.tv_top_right);
         mStart = (TextView) findViewById(R.id.tv_start_exprice);
 
         mStart.startAnimation(AnimationUtils.loadAnimation(this, R.anim.start));
@@ -37,6 +40,9 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
         mRight.setOnClickListener(this);
         mBottom.setOnClickListener(this);
         mStart.setOnClickListener(this);
+        mLeftTop.setOnClickListener(this);
+        mLeftBottom.setOnClickListener(this);
+        mRightTop.setOnClickListener(this);
 
     }
 
@@ -61,17 +67,23 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
                 mCenter.startAnimation(AnimationUtils.loadAnimation(this, R.anim.circle_center_out));
                 if (isNext) {
                     startAnimation(mCenter, "上一批", R.anim.circle_center_out, R.anim.circle_center_in, false);
-                    startAnimation(mTop, "顶部", R.anim.circle_top_out, R.anim.circle_top_in, true);
-                    startAnimation(mLeft, "左边", R.anim.circle_left_out, R.anim.circle_left_in, true);
-                    startAnimation(mRight, "右边", R.anim.circle_right_out, R.anim.circle_right_in, true);
-                    startAnimation(mBottom, "底部", R.anim.circle_bottom_out, R.anim.circle_bottom_in, true);
+                    startAnimation(mTop, "历史", R.anim.circle_top_out, R.anim.circle_top_in, true);
+                    startAnimation(mLeftTop, "社会", R.anim.circle_top_out, R.anim.circle_top_in, true);
+                    startAnimation(mLeft, "养生", R.anim.circle_left_out, R.anim.circle_left_in, true);
+                    startAnimation(mLeftBottom, "汽车", R.anim.circle_left_out, R.anim.circle_left_in, true);
+                    startAnimation(mBottom, "财经", R.anim.circle_bottom_out, R.anim.circle_bottom_in, true);
+                    startAnimation(mRight, "男女", R.anim.circle_right_out, R.anim.circle_right_in, true);
+                    startAnimation(mRightTop, "军事", R.anim.circle_right_out, R.anim.circle_right_in, true);
                     isNext = false;
                 } else {
-                    startAnimation(mCenter, "下一批", R.anim.circle_center_out, R.anim.circle_center_in, false);
-                    startAnimation(mTop, "头条", R.anim.circle_top_out, R.anim.circle_top_in, true);
-                    startAnimation(mLeft, "NBA", R.anim.circle_left_out, R.anim.circle_left_in, true);
-                    startAnimation(mRight, "DNA", R.anim.circle_right_out, R.anim.circle_right_in, true);
-                    startAnimation(mBottom, "MBA", R.anim.circle_bottom_out, R.anim.circle_bottom_in, true);
+                    startAnimation(mCenter, "换一批", R.anim.circle_center_out, R.anim.circle_center_in, false);
+                    startAnimation(mTop, "NBA", R.anim.circle_top_out, R.anim.circle_top_in, true);
+                    startAnimation(mLeftTop, "头条", R.anim.circle_top_out, R.anim.circle_top_in, true);
+                    startAnimation(mLeft, "冷知识", R.anim.circle_left_out, R.anim.circle_left_in, true);
+                    startAnimation(mLeftBottom, "科技", R.anim.circle_left_out, R.anim.circle_left_in, true);
+                    startAnimation(mBottom, "搞笑", R.anim.circle_bottom_out, R.anim.circle_bottom_in, true);
+                    startAnimation(mRight, "娱乐", R.anim.circle_right_out, R.anim.circle_right_in, true);
+                    startAnimation(mRightTop, "足球", R.anim.circle_right_out, R.anim.circle_right_in, true);
                     isNext = true;
                 }
                 break;
@@ -123,4 +135,6 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
         });
         textView.startAnimation(animation);
     }
+
+
 }
