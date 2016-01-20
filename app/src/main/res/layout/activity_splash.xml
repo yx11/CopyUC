@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:circle="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.yx.android.copyuc.ui.widget.AnimationCircleTextView
+        android:id="@+id/tv_top"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@+id/tv_center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="头条"
+        android:textColor="#3333ff"
+        android:textSize="18sp"
+        circle:CircleColor="#3333ff" />
+
+    <com.yx.android.copyuc.ui.widget.AnimationCircleTextView
+        android:id="@+id/tv_center"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="下一批"
+        android:textColor="#222222"
+        android:textSize="18sp"
+        circle:CircleColor="#222222"
+        circle:isAnimation="false" />
+
+    <com.yx.android.copyuc.ui.widget.AnimationCircleTextView
+        android:id="@+id/tv_left"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@+id/tv_center"
+        android:gravity="center"
+        android:text="NBA"
+        android:textColor="#ff33b5e5"
+        android:textSize="18sp"
+        circle:CircleColor="#ff33b5e5" />
+
+    <com.yx.android.copyuc.ui.widget.AnimationCircleTextView
+        android:id="@+id/tv_right"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/tv_center"
+        android:gravity="center"
+        android:text="DNA"
+        android:textColor="#777222"
+        android:textSize="18sp"
+        circle:CircleColor="#777222" />
+
+    <com.yx.android.copyuc.ui.widget.AnimationCircleTextView
+        android:id="@+id/tv_bottom"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/tv_center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="MBA"
+        android:textColor="#222777"
+        android:textSize="18sp"
+        circle:CircleColor="#222777" />
+
+    <TextView
+        android:id="@+id/tv_start_exprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:text="开始体验"
+        android:textColor="#222277" />
+</RelativeLayout>
