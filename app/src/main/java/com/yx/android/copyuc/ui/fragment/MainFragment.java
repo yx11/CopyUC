@@ -22,6 +22,7 @@ import com.yx.android.copyuc.protocol.NetWorkRequest;
 import com.yx.android.copyuc.ui.activtiy.MipcaActivityCapture;
 import com.yx.android.copyuc.ui.activtiy.VoiceActivity;
 import com.yx.android.copyuc.utils.LogUtils;
+import com.yx.android.copyuc.utils.NetUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -61,7 +62,10 @@ public class MainFragment extends BaseFragment {
         mZhiL = (TextView) getActivity().findViewById(R.id.tv_kong_qi_zhi);
         mSheShiDu = (TextView) getActivity().findViewById(R.id.tv_she_shi_du);
         mStatu = (TextView) getActivity().findViewById(R.id.tv_weather);
-        setLocationCity();//定位城市
+
+        if (NetUtils.hasNetwork(getActivity())) {
+            setLocationCity();//定位城市
+        }
 
         ImageView mSweep = (ImageView) getActivity().findViewById(R.id.iv_sweep);
         mSweep.setOnClickListener(new View.OnClickListener() {

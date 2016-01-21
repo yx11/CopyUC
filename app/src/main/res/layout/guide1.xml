@@ -5,18 +5,27 @@
     android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/iv_ring"
+        android:layout_marginTop="-180dp"
+        android:layout_marginLeft="-180dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:src="@mipmap/ic_welcome_center" />
-
+        android:src="@mipmap/color_ring" />
 
     <ImageView
+        android:id="@+id/iv_star"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:src="@mipmap/color_star" />
+
+    <ImageView
+        android:id="@+id/iv_slogan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_marginBottom="20dp"
-        android:src="@mipmap/ic_splash"/>
+        android:layout_marginRight="20dp"
+        android:src="@mipmap/slogan_info_too_much" />
+
 </RelativeLayout>

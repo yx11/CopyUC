@@ -131,4 +131,8 @@ public class Constants {
 
 
     }
+
+    public static final class Preference{
+        public static final String IS_GUIDE="isGuide";
+    }
 }

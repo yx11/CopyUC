@@ -25,6 +25,7 @@ public class AnimationCircleTextView extends TextView {
     private int mCircleColor, mBackGroundColor;
     private Paint mCirclePaint;
     private boolean mIsAnimation;
+    private static final int DEFAULT_STROKEN_WIDTH = 1;//边框1
 
     // 波纹颜色
     private static final int WAVE_PAINT_COLOR = 0x880000aa;
@@ -44,6 +45,8 @@ public class AnimationCircleTextView extends TextView {
 
     private Paint mWavePaint;
     private DrawFilter mDrawFilter;
+
+    private Paint mSecondPaint;
 
     public AnimationCircleTextView(Context context) {
         super(context);
@@ -78,7 +81,7 @@ public class AnimationCircleTextView extends TextView {
         mCirclePaint = new Paint();
         mCirclePaint.setAntiAlias(true);
         mCirclePaint.setStyle(Paint.Style.STROKE);
-        mCirclePaint.setStrokeWidth(1);
+        mCirclePaint.setStrokeWidth(DEFAULT_STROKEN_WIDTH);
         mCirclePaint.setColor(mCircleColor);
         startAnimation(context, mIsAnimation);
 
@@ -91,10 +94,15 @@ public class AnimationCircleTextView extends TextView {
         mWavePaint.setAntiAlias(true);
         // 设置风格为实线
         mWavePaint.setStyle(Paint.Style.FILL);
+        mWavePaint.setStrokeWidth(DEFAULT_STROKEN_WIDTH);
         // 设置画笔颜色
         mWavePaint.setColor(WAVE_PAINT_COLOR);
         mDrawFilter = new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
 
+
+        mSecondPaint = new Paint();
+        mSecondPaint.setColor(WAVE_PAINT_COLOR);
+        mSecondPaint.setStyle(Paint.Style.FILL);
     }
 
     public void startAnimation(Context context, boolean mIsAnimation) {
@@ -127,28 +135,37 @@ public class AnimationCircleTextView extends TextView {
         // 从canvas层面去除绘制时锯齿
         canvas.setDrawFilter(mDrawFilter);
         if (!mIsAnimation) {
+//            canvas.drawCircle(getWidth()/2, getWidth()/2, getWidth() / 2-20, mSecondPaint);
             resetPositonY();
             for (int i = 0; i < mTotalWidth; i++) {
+                float x = getWidth() / 2 - i;
+                float y = mTotalHeight - mResetOneYPositions[i] - 40;
 
-                // 减40只是为了控制波纹绘制的y的在屏幕的位置，大家可以改成一个变量，然后动态改变这个变量，从而形成波纹上升下降效果
-                // 绘制第一条水波纹
-                canvas.drawLine(i + 10, mTotalHeight - mResetOneYPositions[i] - 40, i + 10,
-                        mTotalHeight - 10,
-                        mWavePaint);
+                if ((x * x) + (getWidth() / 2 - y) * (getWidth() / 2 - y) <= (getWidth() / 2 - DEFAULT_STROKEN_WIDTH) * (getWidth() / 2 - DEFAULT_STROKEN_WIDTH)) {
+                    // 减40只是为了控制波纹绘制的y的在屏幕的位置，大家可以改成一个变量，然后动态改变这个变量，从而形成波纹上升下降效果
+                    // 绘制第一条水波纹
+//                    canvas.drawLine(i, y, i,
+//                            mTotalHeight - DEFAULT_STROKEN_WIDTH,
+//                            mWavePaint);
+//                    canvas.drawLine(i, y, i, mTotalHeight, mWavePaint);
+                    canvas.drawPoint(i, y, mWavePaint);
+                }
+
             }
 
             // 改变两条波纹的移动点
             mXOneOffset += mXOffsetSpeedOne;
 
             // 如果已经移动到结尾处，则重头记录
-            if (mXOneOffset >= mTotalWidth) {
+            if (mXOneOffset >= mTotalWidth - DEFAULT_STROKEN_WIDTH) {
                 mXOneOffset = 0;
             }
             // 引发view重绘，一般可以考虑延迟20-30ms重绘，空出时间片
             postInvalidate();
-
+//            mCirclePaint.setColor(WAVE_PAINT_COLOR);
+//            mCirclePaint.setStyle(Paint.Style.FILL);
         }
-        canvas.drawCircle(getWidth() / 2, getHeight() / 2, getHeight() / 2 - 10, mCirclePaint);
+        canvas.drawCircle(getWidth() / 2, getHeight() / 2, getHeight() / 2 - DEFAULT_STROKEN_WIDTH, mCirclePaint);
     }
 
     private void resetPositonY() {
@@ -174,7 +191,7 @@ public class AnimationCircleTextView extends TextView {
         super.onSizeChanged(w, h, oldw, oldh);
         if (!mIsAnimation) {
             // 记录下view的宽高
-            mTotalWidth = w - 10;
+            mTotalWidth = w;
             mTotalHeight = h;
             // 用于保存原始波纹的y值
             mYPositions = new float[mTotalWidth];
@@ -183,6 +200,7 @@ public class AnimationCircleTextView extends TextView {
 
             // 将周期定为view总宽度
             mCycleFactorW = (float) (2 * Math.PI / mTotalWidth);
+
 
             // 根据view总宽度得出所有对应的y值
             for (int i = 0; i < mTotalWidth; i++) {
