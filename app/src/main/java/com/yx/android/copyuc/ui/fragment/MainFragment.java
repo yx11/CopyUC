@@ -126,7 +126,7 @@ public class MainFragment extends BaseFragment {
                             mSheShiDu.setText(info.getDate().substring(info.getDate().length() - 4, info.getDate().length()).substring(0, 2) + "°");
                             mStatu.setText(info.getWeather());
                             if (info.getDayPictureUrl().contains("duoyun")) {
-                                Glide.with(getActivity()).load(info.getDayPictureUrl()).error(R.mipmap.notification_weather_cloudy_small).into(mPic);
+                                Glide.with(getActivity()).load(info.getDayPictureUrl()).error(R.mipmap.ic_add).into(mPic);
                             }
                             mZhiL.setText(info.getWind());
                         }

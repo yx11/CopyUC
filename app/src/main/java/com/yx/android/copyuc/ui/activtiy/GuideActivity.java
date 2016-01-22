@@ -2,12 +2,12 @@ package com.yx.android.copyuc.ui.activtiy;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yx.android.copyuc.R;
@@ -15,6 +15,7 @@ import com.yx.android.copyuc.config.Constants;
 import com.yx.android.copyuc.ui.adapter.GuideAdapter;
 import com.yx.android.copyuc.ui.widget.AnimationCircleTextView;
 import com.yx.android.copyuc.ui.widget.MyViewPager;
+import com.yx.android.copyuc.ui.widget.ViewPagerCompat;
 import com.yx.android.copyuc.utils.SPUtil;
 import com.yx.android.copyuc.utils.UIUtils;
 
@@ -24,7 +25,7 @@ import java.util.List;
 /**
  * Created by yx on 2016/1/21 0021.
  */
-public class GuideActivity extends BaseActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
+public class GuideActivity extends BaseActivity implements ViewPagerCompat.OnPageChangeListener, View.OnClickListener {
     private View view1, view2;
     private List<View> relativeLayoutList;
     private AlphaAnimation anim;
@@ -35,6 +36,7 @@ public class GuideActivity extends BaseActivity implements ViewPager.OnPageChang
     private TextView mStart;
     private MyViewPager mViewPager;
     private GuideAdapter mAdapter;
+    private RelativeLayout mView2;
 
     @Override
     protected void initViewsAndEvents() {
@@ -45,6 +47,7 @@ public class GuideActivity extends BaseActivity implements ViewPager.OnPageChang
         mViewPager.setAdapter(mAdapter);
         mViewPager.setOnPageChangeListener(this);
         mViewPager.setCanMove(false);
+        mViewPager.setPageTransformer(true, new MyViewPager.MyPageTransformer());
 
         mRing = (ImageView) view1.findViewById(R.id.iv_ring);
         mStar = (ImageView) view1.findViewById(R.id.iv_star);
@@ -61,7 +64,7 @@ public class GuideActivity extends BaseActivity implements ViewPager.OnPageChang
             public void run() {
                 mViewPager.setCurrentItem(1);
             }
-        }, 7000);
+        }, 6000);
 
 
         mTop = (AnimationCircleTextView) view2.findViewById(R.id.tv_top);
@@ -73,8 +76,8 @@ public class GuideActivity extends BaseActivity implements ViewPager.OnPageChang
         mLeftBottom = (AnimationCircleTextView) view2.findViewById(R.id.tv_left_bottom);
         mRightTop = (AnimationCircleTextView) view2.findViewById(R.id.tv_top_right);
         mStart = (TextView) view2.findViewById(R.id.tv_start_exprice);
+        mView2 = (RelativeLayout) view2.findViewById(R.id.rl_view);
 
-        mStart.startAnimation(AnimationUtils.loadAnimation(this, R.anim.start));
 
         mTop.setOnClickListener(this);
         mLeft.setOnClickListener(this);
@@ -90,8 +93,6 @@ public class GuideActivity extends BaseActivity implements ViewPager.OnPageChang
     private void initData() {
         view1 = UIUtils.inflate(R.layout.guide1);
         view2 = UIUtils.inflate(R.layout.guide2);
-//        anim = new AlphaAnimation(0, 1);
-//        view2.setAnimation(anim);
         relativeLayoutList = new ArrayList<>();
         relativeLayoutList.add(view1);
         relativeLayoutList.add(view2);
@@ -109,7 +110,7 @@ public class GuideActivity extends BaseActivity implements ViewPager.OnPageChang
 
     @Override
     public void onPageSelected(int position) {
-//       anim.start();
+//        anim.start();
 
     }
 

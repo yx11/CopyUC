@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:circle="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -10,8 +11,8 @@
         android:id="@+id/tv_top_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
         android:src="@mipmap/choice_fav" />
 
 
@@ -131,6 +132,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:text="开始体验"
-        android:textColor="#222277" />
+        android:textSize="20sp"
+        android:textColor="@color/blue" />
 
 </RelativeLayout>
