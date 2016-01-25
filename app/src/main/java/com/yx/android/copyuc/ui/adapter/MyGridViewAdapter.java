@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by yx on 2016/1/14 0014.
  */
-public class MyGridViewAdapter<GridViewInfo> extends ListViewDataAdapterBase<GridViewInfo> implements GridAdapterInterface{
+public class MyGridViewAdapter<GridViewInfo> extends ListViewDataAdapter<GridViewInfo> implements GridAdapterInterface{
     private ArrayList<GridViewInfo> mItems = new ArrayList<>();
     private int mColumnCount;
 

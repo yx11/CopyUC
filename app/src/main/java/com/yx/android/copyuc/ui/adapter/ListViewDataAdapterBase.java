@@ -116,7 +116,7 @@ public abstract class ListViewDataAdapterBase<ItemDataType> extends BaseAdapter 
      * @return
      */
     @Override
-    public final long getItemId(int position) {
+    public long getItemId(int position) {
         if (isGridView()) {
             if (position < 0 || position >= mIdMap.size()) {
                 return INVALID_ID;
