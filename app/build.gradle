@@ -40,6 +40,16 @@ android {
     android {
         useLibrary 'org.apache.http.legacy'
     }
+    
+    task makeJar(type: Copy) {
+    delete 'build/libs/epa_takepicture.jar'
+    from('build/intermediates/bundles/release/')
+    into('build/libs/')
+    include('classes.jar')
+    rename ('classes.jar', 'epa_takepicture.jar')
+}
+
+makeJar.dependsOn(build)
 }
 
 dependencies {
